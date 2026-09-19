@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Untitled Data Experience</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="eyebrow">
+        <span class="eyebrow-dot"></span> DATA / 001
+      </div>
+      <h1 class="hero-title"> Something<br />
+        <em>interesting</em><br /> is hiding here.
+      </h1>
+      <div class="hero-bottom">
+        <p class="hero-description"> A small interactive experiment exploring patterns hidden inside a collection of data. </p>
+        <button class="explore-button" id="exploreButton">
+          <span>Explore</span>
+          <span>↓</span>
+        </button>
+      </div>
+    </section>
+    <!-- VISUALIZATION -->
+    <section class="visual-section" id="visualization">
+      <div class="section-header">
+        <span>THE DATA</span>
+        <span id="recordCount">000 RECORDS</span>
+      </div>
+      <div class="visualization">
+        <div class="grid-lines"></div>
+        <div class="data-canvas" id="dataCanvas">
+          <!-- JS will insert data points here -->
+        </div>
+        <div class="visualization-label">
+          <span>INTERACT</span>
+          <span>01 / 03</span>
+        </div>
+      </div>
+    </section>
+    <!-- DISCOVERY -->
+    <section class="discovery">
+      <div class="section-header">
+        <span>DISCOVERY</span>
+        <span>02 / 03</span>
+      </div>
+      <div class="discovery-content">
+        <p class="discovery-label"> THE PATTERN </p>
+        <h2 id="insightHeadline"> There's more here<br /> than meets the eye. </h2>
+        <p class="discovery-description" id="insightDescription"> Interact with the visualization to uncover something hidden in the dataset. </p>
+      </div>
+    </section>
+    <!-- DETAIL -->
+    <section class="detail-section">
+      <div class="section-header">
+        <span>ONE RECORD</span>
+        <span>03 / 03</span>
+      </div>
+      <div class="detail-card" id="detailCard">
+        <div class="detail-number"> RECORD <span id="detailNumber">—</span>
+        </div>
+        <h3 id="detailTitle"> Select a point </h3>
+        <div class="detail-meta">
+          <div>
+            <span>FIELD 01</span>
+            <strong id="detailFieldOne">—</strong>
+          </div>
+          <div>
+            <span>FIELD 02</span>
+            <strong id="detailFieldTwo">—</strong>
+          </div>
+          <div>
+            <span>FIELD 03</span>
+            <strong id="detailFieldThree">—</strong>
+          </div>
+          <div>
+            <span>FIELD 04</span>
+            <strong id="detailFieldFour">—</strong>
+          </div>
+          <div>
+            <span>FIELD 05</span>
+            <strong id="detailFieldFive">—</strong>
+          </div>
+          <div>
+            <span>FIELD 06</span>
+            <strong id="detailFieldSix">—</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- FOOTER -->
+    <footer>
+      <div> CREATIVE TECHNOLOGIST </div>
+      <div> DATA EXPERIENCE / 2026 </div>
+    </footer>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>

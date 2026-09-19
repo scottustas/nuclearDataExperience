@@ -1,0 +1,396 @@
+:root {
+  --bg: #0b0b0b;
+  --surface: #111111;
+  --text: #f2f0eb;
+  --muted: #8b8984;
+  --line: #292929;
+  --accent: #d8ff3e;
+
+  --padding: clamp(20px, 4vw, 64px);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Inter", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font: inherit;
+}
+
+section {
+  position: relative;
+  padding: 0 var(--padding);
+}
+
+
+/* --------------------------------
+   HERO
+-------------------------------- */
+
+.hero {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: 32px;
+  padding-bottom: 40px;
+}
+
+.eyebrow,
+.section-header,
+.visualization-label,
+.detail-number,
+.detail-meta span,
+.discovery-label,
+footer {
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.eyebrow-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 12px var(--accent);
+}
+
+.hero-title {
+  margin: auto 0;
+  max-width: 1000px;
+  font-size: clamp(4rem, 11vw, 10rem);
+  line-height: 0.88;
+  letter-spacing: -0.065em;
+  font-weight: 600;
+}
+
+.hero-title em {
+  color: var(--accent);
+  font-style: normal;
+}
+
+.hero-bottom {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.hero-description {
+  max-width: 360px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.explore-button {
+  display: flex;
+  gap: 35px;
+  align-items: center;
+
+  padding: 14px 18px;
+
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--text);
+
+  cursor: pointer;
+  transition:
+    background 0.3s ease,
+    color 0.3s ease;
+}
+
+.explore-button:hover {
+  background: var(--accent);
+  color: #000;
+}
+
+
+/* --------------------------------
+   SHARED
+-------------------------------- */
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+
+  padding: 20px 0;
+  border-top: 1px solid var(--line);
+
+  color: var(--muted);
+}
+
+
+/* --------------------------------
+   VISUALIZATION
+-------------------------------- */
+
+.visual-section {
+  padding-bottom: 120px;
+}
+
+.visualization {
+  position: relative;
+  height: min(70vh, 700px);
+  min-height: 420px;
+  overflow: hidden;
+
+  border: 1px solid var(--line);
+  
+  /* Combined dark tint + map background loaded instantly */
+  background: 
+    linear-gradient(rgba(11, 11, 11, 0.88), rgba(11, 11, 11, 0.88)),
+    url('./img/map.svg');
+  
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Grid lines sit above the background map */
+.grid-lines {
+  position: absolute;
+  inset: 0;
+
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,0.035) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,0.035) 1px,
+      transparent 1px
+    );
+
+  background-size: 80px 80px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Data canvas and points sit firmly on top */
+.data-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.data-point {
+  position: absolute;
+
+  width: 20px;
+  height: 20px;
+
+  border: 0;
+  border-radius: 50%;
+
+  background: var(--accent);
+  opacity: 0.5;
+  mix-blend-mode: screen;
+
+  cursor: pointer;
+
+  transform: translate(-50%, -50%);
+
+  box-shadow:
+    0 0 0 0 rgba(216,255,62,0.3);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    opacity 0.25s ease;
+}
+
+.data-point:hover {
+  transform: translate(-50%, -50%) scale(2);
+  box-shadow: 0 0 0 10px rgba(216,255,62,0.08);
+  opacity: 1;
+  z-index: 10;
+}
+
+.visualization-label {
+  position: absolute;
+  bottom: 18px;
+  left: 18px;
+  right: 18px;
+
+  display: flex;
+  justify-content: space-between;
+
+  color: var(--muted);
+  pointer-events: none;
+  z-index: 3;
+}
+
+
+/* --------------------------------
+   DISCOVERY
+-------------------------------- */
+
+.discovery {
+  min-height: 85svh;
+  padding-bottom: 120px;
+}
+
+.discovery-content {
+  padding-top: 15vh;
+  max-width: 1100px;
+}
+
+.discovery-label {
+  color: var(--accent);
+  margin-bottom: 30px;
+}
+
+.discovery h2 {
+  margin: 0;
+
+  font-size: clamp(3rem, 8vw, 8rem);
+  line-height: 0.92;
+  letter-spacing: -0.055em;
+  font-weight: 500;
+}
+
+.discovery-description {
+  max-width: 480px;
+  margin-top: 60px;
+
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+
+/* --------------------------------
+   DETAIL
+-------------------------------- */
+
+.detail-section {
+  padding-bottom: 160px;
+}
+
+.detail-card {
+  max-width: 850px;
+  padding: clamp(25px, 5vw, 70px);
+
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+
+.detail-number {
+  color: var(--muted);
+}
+
+.detail-card h3 {
+  margin: 80px 0;
+
+  font-size: clamp(3rem, 7vw, 7rem);
+  line-height: 0.9;
+  letter-spacing: -0.055em;
+}
+
+.detail-meta {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.detail-meta div {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.detail-meta span {
+  color: var(--muted);
+}
+
+.detail-meta strong {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+
+/* --------------------------------
+   FOOTER
+-------------------------------- */
+
+footer {
+  display: flex;
+  justify-content: space-between;
+
+  padding: 25px var(--padding);
+
+  border-top: 1px solid var(--line);
+
+  color: var(--muted);
+}
+
+
+/* --------------------------------
+   MOBILE
+-------------------------------- */
+
+@media (max-width: 700px) {
+
+  .hero {
+    padding-top: 22px;
+    padding-bottom: 25px;
+  }
+
+  .hero-title {
+    font-size: clamp(3.7rem, 18vw, 7rem);
+  }
+
+  .hero-bottom {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .explore-button {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .visualization {
+    min-height: 500px;
+  }
+
+  .discovery {
+    min-height: 75svh;
+  }
+
+  .detail-card h3 {
+    margin: 50px 0;
+  }
+
+  .detail-meta {
+    grid-template-columns: 1fr;
+  }
+
+  footer {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
