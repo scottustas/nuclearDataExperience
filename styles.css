@@ -40,12 +40,15 @@ section {
 -------------------------------- */
 
 .hero {
-  min-height: 57svh;
+  min-height: auto; /* Removes the forced vertical stretch */
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start; /* Stacks items tightly from top to bottom */
+  gap: 3rem; /* Controls the exact vertical space between eyebrow, title, and description */
   padding-top: 32px;
-  padding-bottom: 40px;
+  padding-bottom: 24px; /* Reduced bottom padding */
+  position: relative;
+  overflow: hidden;
 }
 
 .eyebrow,
@@ -76,7 +79,7 @@ footer {
 }
 
 .hero-title {
-  margin: auto 0;
+  margin: 0; /* Replaces 'auto 0' with a tighter, controlled top/bottom space */
   max-width: 1000px;
   font-size: clamp(4rem, 11vw, 10rem);
   line-height: 0.88;
@@ -85,8 +88,33 @@ footer {
 }
 
 .hero-title em {
-  color: var(--accent);
   font-style: normal;
+  /* Searing nuclear fire gradient anchored in place */
+  background: linear-gradient(135deg, #990709 0%, #dec406 40%, #ffea43 75%, #080000 100%);
+  background-size: 100% auto;
+  background-position: center;
+  
+  /* Clip the gradient strictly to the letters */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  
+  /* Organic thermal flare: pulses 3 times in place, then rests */
+  animation: nuclearFlare 2s ease-in-out 3;
+  animation-fill-mode: forwards;
+
+  /* Initial thermal glow */
+  filter: drop-shadow(0 0 25px rgba(255, 69, 0, 0.4));
+}
+
+@keyframes nuclearFlare {
+  0%, 100% {
+    filter: drop-shadow(0 0 20px rgba(255, 69, 0, 0.3)) brightness(1);
+  }
+  50% {
+    /* Flares up in brightness and intensity, staying completely still */
+    filter: drop-shadow(0 0 50px rgba(255, 140, 0, 0.8)) brightness(1.25);
+  }
 }
 
 .hero-bottom {

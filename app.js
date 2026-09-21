@@ -245,8 +245,7 @@ function showRecord(record) {
 
 function setupAnimations() {
 
-  const points =
-    document.querySelectorAll(".data-point");
+  const points = document.querySelectorAll(".data-point");
 
   console.log(
     "GSAP points:",
@@ -254,12 +253,9 @@ function setupAnimations() {
   );
 
   if (typeof gsap === "undefined") {
-
     console.warn("GSAP isn't loaded.");
-
     return;
   }
-
 
   const intro = gsap.timeline({
     defaults: {
@@ -267,39 +263,28 @@ function setupAnimations() {
     }
   });
 
-
   intro
     .from(".eyebrow", {
       opacity: 0,
       y: 20,
-      duration: 0.6
+      duration: .6
     })
-    .from(".hero-title", {
+    // Stagger each line of the hero title sequentially
+    .from(".title-line", {
       opacity: 0,
-      y: 60,
-      duration: 1
+      y: 50,
+      duration: 2,
+      stagger: 0.25, 
+      ease: "power3.out"
     }, "-=0.3")
     .from(".hero-description", {
       opacity: 0,
       y: 20,
       duration: 0.6
-    }, "-=0.5")
-    .from(".explore-button", {
-      opacity: 0,
-      y: 20,
-      duration: 0.6
-    }, "-=0.4");
+    }, "-=1.75")
+ 
 
 
-// if (points.length) {
-//     gsap.from(points, {
-//       opacity: 0,
-//       duration: 0.6,
-//       stagger: 0.015,
-//       ease: "power2.out",
-//       delay: 1
-//     });
-//   }
 }
 
 
