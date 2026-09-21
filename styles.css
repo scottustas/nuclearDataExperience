@@ -6,7 +6,7 @@
   --line: #292929;
   --accent: #dec406;
 
-  --padding: clamp(20px, 4vw, 64px);
+  --padding: clamp(20px, 4vw, 32px);
 }
 
 * {
@@ -32,6 +32,8 @@ button {
 section {
   position: relative;
   padding: 0 var(--padding);
+  max-width: 800px; /* Locked to 800px */
+  margin: 0 auto;    /* Centers everything uniformly */
 }
 
 @keyframes pointPop {
@@ -40,7 +42,7 @@ section {
     transform: translate(-50%, -50%) scale(0);
   }
   100% {
-    opacity: 0.5; /* matches your default point opacity */
+    opacity: 0.5;
     transform: translate(-50%, -50%) scale(1);
   }
 }
@@ -50,15 +52,17 @@ section {
 -------------------------------- */
 
 .hero {
-  min-height: auto; /* Removes the forced vertical stretch */
+  min-height: auto;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* Stacks items tightly from top to bottom */
-  gap: 3rem; /* Controls the exact vertical space between eyebrow, title, and description */
+  justify-content: flex-start;
+  gap: 3rem;
   padding-top: 32px;
-  padding-bottom: 24px; /* Reduced bottom padding */
+  padding-bottom: 24px;
   position: relative;
   overflow: hidden;
+  max-width: 800px; /* Locked to 800px */
+  margin: 0 auto;
 }
 
 .eyebrow,
@@ -89,9 +93,9 @@ footer {
 }
 
 .hero-title {
-  margin: 0; /* Replaces 'auto 0' with a tighter, controlled top/bottom space */
-  max-width: 1000px;
-  font-size: clamp(4rem, 11vw, 10rem);
+  margin: 0;
+  max-width: 800px;
+  font-size: clamp(3rem, 9vw, 5.5rem); /* Scaled down slightly to fit 800px cleanly */
   line-height: 0.88;
   letter-spacing: -0.065em;
   font-weight: 600;
@@ -99,21 +103,16 @@ footer {
 
 .hero-title em {
   font-style: normal;
-  /* Searing nuclear fire gradient anchored in place */
   background: linear-gradient(135deg, #990709 0%, #dec406 40%, #ffea43 75%, #080000 100%);
   background-size: 100% auto;
   background-position: center;
   
-  /* Clip the gradient strictly to the letters */
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   
-  /* Organic thermal flare: pulses 3 times in place, then rests */
   animation: nuclearFlare 2s ease-in-out 3;
   animation-fill-mode: forwards;
-
-  /* Initial thermal glow */
   filter: drop-shadow(0 0 25px rgba(255, 69, 0, 0.4));
 }
 
@@ -122,7 +121,6 @@ footer {
     filter: drop-shadow(0 0 20px rgba(255, 69, 0, 0.3)) brightness(1);
   }
   50% {
-    /* Flares up in brightness and intensity, staying completely still */
     filter: drop-shadow(0 0 50px rgba(255, 140, 0, 0.8)) brightness(1.25);
   }
 }
@@ -146,24 +144,18 @@ footer {
   display: flex;
   gap: 35px;
   align-items: center;
-
   padding: 14px 18px;
-
   border: 1px solid var(--line);
   background: transparent;
   color: var(--text);
-
   cursor: pointer;
-  transition:
-    background 0.3s ease,
-    color 0.3s ease;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 .explore-button:hover {
   background: var(--accent);
   color: #000;
 }
-
 
 /* --------------------------------
    SHARED
@@ -172,13 +164,10 @@ footer {
 .section-header {
   display: flex;
   justify-content: space-between;
-
   padding: 20px 0;
   border-top: 1px solid var(--line);
-
   color: var(--muted);
 }
-
 
 /* --------------------------------
    VISUALIZATION
@@ -192,15 +181,17 @@ footer {
 
 .visual-section {
   padding-bottom: 50px;
+  max-width: 800px; /* Locked to 800px */
+  margin: 0 auto;
 }
 
 .visualization {
   position: relative;
   width: 100%;
-  aspect-ratio: 2 / 1; /* Locks the 2:1 ratio matching your Wikipedia map */
-  max-height: 700px;
+  max-width: 800px; /* Locked to 800px */
+  margin: 0 auto;
+  aspect-ratio: 2 / 1; 
   overflow: hidden;
-
   border: 1px solid var(--line);
   
   background: 
@@ -212,28 +203,17 @@ footer {
   background-repeat: no-repeat;
 }
 
-/* Grid lines sit above the background map */
 .grid-lines {
   position: absolute;
   inset: 0;
-
   background-image:
-    linear-gradient(
-      rgba(255,255,255,0.035) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      90deg,
-      rgba(255,255,255,0.035) 1px,
-      transparent 1px
-    );
-
+    linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
   background-size: 80px 80px;
   pointer-events: none;
   z-index: 1;
 }
 
-/* Data canvas and points sit firmly on top */
 .data-canvas {
   position: absolute;
   inset: 0;
@@ -252,12 +232,7 @@ footer {
   cursor: pointer;
   transform: translate(-50%, -50%);
   box-shadow: 0 0 0 0 rgba(216,255,62,0.3);
-
-  /* Added 'background' to the transition list */
-  transition:
-    transform 0.25s ease,
-    opacity 0.25s ease,
-    background 0.25s ease;
+  transition: transform 0.25s ease, opacity 0.25s ease, background 0.25s ease;
 }
 
 .data-point:hover {
@@ -275,16 +250,13 @@ footer {
   z-index: 10;
 }
 
-
 .visualization-label {
   position: absolute;
   bottom: 18px;
   left: 18px;
   right: 18px;
-
   display: flex;
   justify-content: space-between;
-
   color: var(--muted);
   pointer-events: none;
   z-index: 3;
@@ -299,11 +271,10 @@ footer {
 }
 
 .detail-card {
-  width: 100%;               /* Ensures it fills the available section width */
-  max-width: 1000px;         /* Matches your hero title max-width for visual balance */
-  margin: 0 auto;            /* Centers the card nicely if the screen is wider than max-width */
-  padding: clamp(25px, 5vw, 70px);
-
+  width: 100%;
+  max-width: 800px; /* Locked to 800px */
+  margin: 0 auto;
+  padding: clamp(25px, 5vw, 50px);
   background: var(--surface);
   border: 1px solid var(--line);
 }
@@ -313,9 +284,8 @@ footer {
 }
 
 .detail-card h3 {
-  margin: 40px 0;
-
-  font-size: clamp(1.5rem, 5vw, 4rem);
+  margin: 30px 0;
+  font-size: clamp(1.5rem, 4vw, 3rem);
   line-height: 0.9;
   letter-spacing: -0.055em;
 }
@@ -323,13 +293,13 @@ footer {
 .detail-meta {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
+  gap: 20px;
 }
 
 .detail-meta div {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 
 .detail-meta span {
@@ -337,10 +307,9 @@ footer {
 }
 
 .detail-meta strong {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 500;
 }
-
 
 /* --------------------------------
    FOOTER
@@ -349,28 +318,25 @@ footer {
 footer {
   display: flex;
   justify-content: space-between;
-
   padding: 25px var(--padding);
-
-  border-top: 1px solid var(--line);
-
+  /* border-top: 1px solid var(--line); */
   color: var(--muted);
+  max-width: 800px; /* Locked to 800px */
+  margin: 0 auto;
 }
-
 
 /* --------------------------------
    MOBILE
 -------------------------------- */
 
 @media (max-width: 700px) {
-
   .hero {
     padding-top: 22px;
     padding-bottom: 25px;
   }
 
   .hero-title {
-    font-size: clamp(3.7rem, 18vw, 7rem);
+    font-size: clamp(3.2rem, 15vw, 5rem);
   }
 
   .hero-bottom {
@@ -384,7 +350,7 @@ footer {
   }
 
   .detail-card h3 {
-    margin: 50px 0;
+    margin: 40px 0;
   }
 
   .detail-meta {
