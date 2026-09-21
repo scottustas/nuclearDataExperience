@@ -10,9 +10,7 @@ const detailFieldTwo = document.querySelector("#detailFieldTwo");
 const detailFieldThree = document.querySelector("#detailFieldThree");
 const detailFieldFour = document.querySelector("#detailFieldFour");
 
-
 let data = [];
-
 
 // -----------------------------------------
 // LOAD JSON
@@ -46,7 +44,6 @@ async function loadData() {
   }
 }
 
-
 // -----------------------------------------
 // INITIALIZE
 // -----------------------------------------
@@ -70,68 +67,41 @@ function initializeExperience() {
   );
 }
 
-
 // -----------------------------------------
 // RENDER POINTS
 // -----------------------------------------
 
 function renderPoints() {
-
   console.log("Rendering points...");
 
   canvas.innerHTML = "";
 
   data.forEach((record, index) => {
-
     const point = document.createElement("button");
 
     point.className = "data-point";
-
     point.type = "button";
-
     point.title = record.name;
+    point.setAttribute("aria-label", record.name);
 
-    point.setAttribute(
-      "aria-label",
-      record.name
-    );
-
-    /*
-      Convert longitude / latitude
-      into percentages.
-
-      longitude:
-      -180 → 0%
-       180 → 100%
-
-      latitude:
-       90 → 0%
-      -90 → 100%
-    */
-
-    const x =
-      ((record.longitude + 180) / 360) * 100;
-
-    const y =
-      ((90 - record.latitude) / 180) * 100;
+    const x = ((record.longitude + 180) / 360) * 100;
+    const y = ((90 - record.latitude) / 180) * 100;
 
     point.style.left = `${x}%`;
     point.style.top = `${y}%`;
-
     point.dataset.index = index;
+
+    const randomDelay = (2.0 + Math.random() * 2.5).toFixed(2);
+    point.style.animation = `pointPop 0.8s cubic-bezier(0.25, 1, 0.5, 1) ${randomDelay}s both`;
+
+    // 🔓 Release the transform lock the moment the point finishes animating in
+    point.addEventListener("animationend", () => {
+      point.style.animation = "";
+    }, { once: true });
 
     canvas.appendChild(point);
   });
 }
-
-
-// -----------------------------------------
-// INTERACTION
-// -----------------------------------------
-
-// -----------------------------------------
-// INTERACTION
-// -----------------------------------------
 
 // -----------------------------------------
 // INTERACTION
@@ -243,6 +213,37 @@ function showRecord(record) {
 // GSAP
 // -----------------------------------------
 
+function renderPoints() {
+
+  console.log("Rendering points...");
+
+  canvas.innerHTML = "";
+
+  data.forEach((record, index) => {
+
+    const point = document.createElement("button");
+
+    point.className = "data-point";
+    point.type = "button";
+    point.title = record.name;
+    point.setAttribute("aria-label", record.name);
+
+    const x = ((record.longitude + 180) / 360) * 100;
+    const y = ((90 - record.latitude) / 180) * 100;
+
+    point.style.left = `${x}%`;
+    point.style.top = `${y}%`;
+    point.dataset.index = index;
+
+    // 🕒 Waits 2 seconds for the hero text to finish, then randomly staggers over the next 1.8s
+const randomDelay = (2.0 + Math.random() * 2.5).toFixed(2);
+    point.style.animation = `pointPop 0.8s cubic-bezier(0.25, 1, 0.5, 1) ${randomDelay}s both`;
+
+    canvas.appendChild(point);
+  });
+}
+
+
 function setupAnimations() {
 
   const points = document.querySelectorAll(".data-point");
@@ -282,7 +283,11 @@ function setupAnimations() {
       y: 20,
       duration: 0.6
     }, "-=1.75")
- 
+    .from(".explore-button", {
+      opacity: 0,
+      y: 20,
+      duration: 0.6
+    }, "-=1.5");
 
 
 }

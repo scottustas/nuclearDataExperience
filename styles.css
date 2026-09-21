@@ -4,7 +4,7 @@
   --text: #f2f0eb;
   --muted: #8b8984;
   --line: #292929;
-  --accent: #d8ff3e;
+  --accent: #dec406;
 
   --padding: clamp(20px, 4vw, 64px);
 }
@@ -34,6 +34,16 @@ section {
   padding: 0 var(--padding);
 }
 
+@keyframes pointPop {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+  }
+  100% {
+    opacity: 0.5; /* matches your default point opacity */
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
 
 /* --------------------------------
    HERO
@@ -243,23 +253,24 @@ footer {
   transform: translate(-50%, -50%);
   box-shadow: 0 0 0 0 rgba(216,255,62,0.3);
 
-  /* REMOVE box-shadow from this transition list: */
+  /* Added 'background' to the transition list */
   transition:
     transform 0.25s ease,
-    opacity 0.25s ease;
+    opacity 0.25s ease,
+    background 0.25s ease;
 }
 
 .data-point:hover {
   transform: translate(-50%, -50%) scale(1.25);
-  /* box-shadow: 0 0 0 10px rgba(216,255,62,0.08); */
   opacity: 1;
   z-index: 10;
 }
 
 .data-point.active {
-  transform: translate(-50%, -50%) scale(1.5);
-  background: #ffffff;
-  opacity: 1; /* Sets opacity to 100% when clicked */
+  transform: translate(-50%, -50%) scale(1.5) !important;
+  background: #ffffff !important;
+  opacity: 1 !important;
+  mix-blend-mode: normal !important;
   box-shadow: 0 0 0 6px rgba(216,255,62,0.3);
   z-index: 10;
 }
@@ -371,11 +382,6 @@ footer {
     width: 100%;
     justify-content: space-between;
   }
-
-  /* 
-    ⚠️ Make sure this line is GONE:
-    .visualization { min-height: 500px; }
-  */
 
   .detail-card h3 {
     margin: 50px 0;
