@@ -1,5 +1,3 @@
-console.log("🔥 NEW APP.JS IS RUNNING");
-
 const canvas = document.querySelector("#dataCanvas");
 const recordCount = document.querySelector("#recordCount");
 
@@ -10,6 +8,8 @@ const detailTitle = document.querySelector("#detailTitle");
 const detailFieldOne = document.querySelector("#detailFieldOne");
 const detailFieldTwo = document.querySelector("#detailFieldTwo");
 const detailFieldThree = document.querySelector("#detailFieldThree");
+const detailFieldFour = document.querySelector("#detailFieldFour");
+
 
 let data = [];
 
@@ -129,38 +129,62 @@ function renderPoints() {
 // INTERACTION
 // -----------------------------------------
 
+// -----------------------------------------
+// INTERACTION
+// -----------------------------------------
+
+// -----------------------------------------
+// INTERACTION
+// -----------------------------------------
+
 function setupInteractions() {
 
-  const points =
-    document.querySelectorAll(".data-point");
+  const points = document.querySelectorAll(".data-point");
 
   points.forEach(point => {
 
     point.addEventListener("click", () => {
 
-      const index =
-        Number(point.dataset.index);
+      // 1. Manage active class for points
+      points.forEach(p => p.classList.remove("active"));
+      point.classList.add("active");
 
+      const index = Number(point.dataset.index);
       const record = data[index];
+
+      // 2. Dynamic GSAP Radar Shockwave (Size scales with yield, speed stays constant)
+      gsap.killTweensOf(point); // Prevents glitching if clicked rapidly
+
+      const yieldVal = record.yield_kt || 1;
+      const logYield = Math.log10(Math.max(yieldVal, 0.001)); 
+      
+      // Map it to a pixel radius (between 15px for small tests up to 70px for Tsar Bomba)
+      const maxRadius = Math.min(Math.max(15 + (logYield * 12), 15), 70);
+
+      gsap.fromTo(point, 
+        { 
+          boxShadow: "0 0 0 8px rgba(216,255,62,0.8)" 
+        }, 
+        { 
+          boxShadow: `0 0 0 ${maxRadius}px rgba(216,255,62,0)`, 
+          duration: 1.6, // Fixed snappy duration for every click
+          ease: "power2.out" 
+        }
+      );
 
       showRecord(record);
     });
 
   });
 
-
   if (exploreButton) {
-
     exploreButton.addEventListener("click", () => {
-
       document
         .querySelector("#visualization")
         .scrollIntoView({
           behavior: "smooth"
         });
-
     });
-
   }
 }
 
@@ -181,31 +205,37 @@ function showRecord(record) {
   detailFieldOne.textContent =
     record.year;
 
-  detailFieldTwo.textContent =
-    `${record.yield_kt} kt`;
-
-  detailFieldThree.textContent =
-    record.site;
-
-
-  if (typeof gsap !== "undefined") {
-
-    gsap.fromTo(
-      "#detailCard",
-      {
-        y: 30,
-        opacity: 0
-      },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 0.5,
-        ease: "power3.out"
-      }
-    );
-
+  // EDITORIAL ENHANCEMENT FOR YIELD:
+  const yieldValue = record.yield_kt;
+  let yieldContext = `${yieldValue} kt`;
+  
+  if (yieldValue) {
+    // Rough comparison to Hiroshima (~15kt) for visceral scale
+    const hiroshimaRatio = (yieldValue / 15).toFixed(1);
+    if (hiroshimaRatio > 1) {
+      yieldContext = `${yieldValue} kt (~${hiroshimaRatio}x Hiroshima)`;
+    } else {
+      yieldContext = `${yieldValue} kt (Sub-Hiroshima scale)`;
+    }
+  } else {
+    yieldContext = "Unannounced / Undisclosed";
   }
 
+  detailFieldTwo.textContent = yieldContext;
+
+  detailFieldThree.textContent =
+    record.test_type;
+
+  detailFieldFour.textContent =
+    record.site;
+
+  if (typeof gsap !== "undefined") {
+    gsap.fromTo(
+      "#detailCard",
+      { y: 30, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.5, ease: "power3.out" }
+    );
+  }
 }
 
 

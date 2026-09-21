@@ -16,13 +16,12 @@
     <!-- HERO -->
     <section class="hero">
       <div class="eyebrow">
-        <span class="eyebrow-dot"></span> DATA / 001
+        <span class="eyebrow-dot"></span> DATA / NUCLEAR DETONATIONS
       </div>
-      <h1 class="hero-title"> Something<br />
-        <em>interesting</em><br /> is hiding here.
+      <h1 class="hero-title">A GLOBAL LEDGER<br /> OF <em>ATOMIC</em><br /> FIRE.</em>
       </h1>
       <div class="hero-bottom">
-        <p class="hero-description"> A small interactive experiment exploring patterns hidden inside a collection of data. </p>
+        <p class="hero-description"> Between 1945 and 2017, humanity conducted over 2,000 nuclear tests across the globe. Explore the spatial and temporal footprint of the atomic age. </p>
         <button class="explore-button" id="exploreButton">
           <span>Explore</span>
           <span>↓</span>
@@ -32,8 +31,12 @@
     <!-- VISUALIZATION -->
     <section class="visual-section" id="visualization">
       <div class="section-header">
-        <span>THE DATA</span>
+        <span>THE ARCHIVE / 1945–2017</span> <!-- Updated to cover the NK tests -->
         <span id="recordCount">000 RECORDS</span>
+      </div>
+      <!-- ADD THIS EDITORIAL SUBHEAD -->
+      <div class="viz-editorial-intro">
+        <p>Each point represents a detonation. Click any marker to inspect the test site, yield, and year.</p>
       </div>
       <div class="visualization">
         <div class="grid-lines"></div>
@@ -41,57 +44,33 @@
           <!-- JS will insert data points here -->
         </div>
         <div class="visualization-label">
-          <span>INTERACT</span>
-          <span>01 / 03</span>
+          <span>GLOBAL VIEW</span>
+          <span>INTERACTIVE</span>
         </div>
-      </div>
-    </section>
-    <!-- DISCOVERY -->
-    <section class="discovery">
-      <div class="section-header">
-        <span>DISCOVERY</span>
-        <span>02 / 03</span>
-      </div>
-      <div class="discovery-content">
-        <p class="discovery-label"> THE PATTERN </p>
-        <h2 id="insightHeadline"> There's more here<br /> than meets the eye. </h2>
-        <p class="discovery-description" id="insightDescription"> Interact with the visualization to uncover something hidden in the dataset. </p>
       </div>
     </section>
     <!-- DETAIL -->
     <section class="detail-section">
-      <div class="section-header">
-        <span>ONE RECORD</span>
-        <span>03 / 03</span>
-      </div>
       <div class="detail-card" id="detailCard">
         <div class="detail-number"> RECORD <span id="detailNumber">—</span>
         </div>
         <h3 id="detailTitle"> Select a point </h3>
         <div class="detail-meta">
           <div>
-            <span>FIELD 01</span>
+            <span>YEAR</span>
             <strong id="detailFieldOne">—</strong>
           </div>
           <div>
-            <span>FIELD 02</span>
+            <span>YIELD</span>
             <strong id="detailFieldTwo">—</strong>
           </div>
           <div>
-            <span>FIELD 03</span>
+            <span>TEST TYPE</span>
             <strong id="detailFieldThree">—</strong>
           </div>
           <div>
-            <span>FIELD 04</span>
+            <span>TEST SITE</span>
             <strong id="detailFieldFour">—</strong>
-          </div>
-          <div>
-            <span>FIELD 05</span>
-            <strong id="detailFieldFive">—</strong>
-          </div>
-          <div>
-            <span>FIELD 06</span>
-            <strong id="detailFieldSix">—</strong>
           </div>
         </div>
       </div>

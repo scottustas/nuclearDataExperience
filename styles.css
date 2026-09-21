@@ -40,7 +40,7 @@ section {
 -------------------------------- */
 
 .hero {
-  min-height: 100svh;
+  min-height: 57svh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -146,19 +146,25 @@ footer {
    VISUALIZATION
 -------------------------------- */
 
+.viz-editorial-intro {
+  margin-bottom: 20px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
 .visual-section {
-  padding-bottom: 120px;
+  padding-bottom: 50px;
 }
 
 .visualization {
   position: relative;
-  height: min(70vh, 700px);
-  min-height: 420px;
+  width: 100%;
+  aspect-ratio: 2 / 1; /* Locks the 2:1 ratio matching your Wikipedia map */
+  max-height: 700px;
   overflow: hidden;
 
   border: 1px solid var(--line);
   
-  /* Combined dark tint + map background loaded instantly */
   background: 
     linear-gradient(rgba(11, 11, 11, 0.88), rgba(11, 11, 11, 0.88)),
     url('./img/map.svg');
@@ -198,36 +204,38 @@ footer {
 
 .data-point {
   position: absolute;
-
-  width: 20px;
-  height: 20px;
-
+  width: 10px;
+  height: 10px;
   border: 0;
   border-radius: 50%;
-
   background: var(--accent);
   opacity: 0.5;
   mix-blend-mode: screen;
-
   cursor: pointer;
-
   transform: translate(-50%, -50%);
+  box-shadow: 0 0 0 0 rgba(216,255,62,0.3);
 
-  box-shadow:
-    0 0 0 0 rgba(216,255,62,0.3);
-
+  /* REMOVE box-shadow from this transition list: */
   transition:
     transform 0.25s ease,
-    box-shadow 0.25s ease,
     opacity 0.25s ease;
 }
 
 .data-point:hover {
-  transform: translate(-50%, -50%) scale(2);
-  box-shadow: 0 0 0 10px rgba(216,255,62,0.08);
+  transform: translate(-50%, -50%) scale(1.25);
+  /* box-shadow: 0 0 0 10px rgba(216,255,62,0.08); */
   opacity: 1;
   z-index: 10;
 }
+
+.data-point.active {
+  transform: translate(-50%, -50%) scale(1.5);
+  background: #ffffff;
+  opacity: 1; /* Sets opacity to 100% when clicked */
+  box-shadow: 0 0 0 6px rgba(216,255,62,0.3);
+  z-index: 10;
+}
+
 
 .visualization-label {
   position: absolute;
@@ -243,45 +251,6 @@ footer {
   z-index: 3;
 }
 
-
-/* --------------------------------
-   DISCOVERY
--------------------------------- */
-
-.discovery {
-  min-height: 85svh;
-  padding-bottom: 120px;
-}
-
-.discovery-content {
-  padding-top: 15vh;
-  max-width: 1100px;
-}
-
-.discovery-label {
-  color: var(--accent);
-  margin-bottom: 30px;
-}
-
-.discovery h2 {
-  margin: 0;
-
-  font-size: clamp(3rem, 8vw, 8rem);
-  line-height: 0.92;
-  letter-spacing: -0.055em;
-  font-weight: 500;
-}
-
-.discovery-description {
-  max-width: 480px;
-  margin-top: 60px;
-
-  color: var(--muted);
-  font-size: 17px;
-  line-height: 1.6;
-}
-
-
 /* --------------------------------
    DETAIL
 -------------------------------- */
@@ -291,7 +260,9 @@ footer {
 }
 
 .detail-card {
-  max-width: 850px;
+  width: 100%;               /* Ensures it fills the available section width */
+  max-width: 1000px;         /* Matches your hero title max-width for visual balance */
+  margin: 0 auto;            /* Centers the card nicely if the screen is wider than max-width */
   padding: clamp(25px, 5vw, 70px);
 
   background: var(--surface);
@@ -303,9 +274,9 @@ footer {
 }
 
 .detail-card h3 {
-  margin: 80px 0;
+  margin: 40px 0;
 
-  font-size: clamp(3rem, 7vw, 7rem);
+  font-size: clamp(1.5rem, 5vw, 4rem);
   line-height: 0.9;
   letter-spacing: -0.055em;
 }
@@ -373,13 +344,10 @@ footer {
     justify-content: space-between;
   }
 
-  .visualization {
-    min-height: 500px;
-  }
-
-  .discovery {
-    min-height: 75svh;
-  }
+  /* 
+    ⚠️ Make sure this line is GONE:
+    .visualization { min-height: 500px; }
+  */
 
   .detail-card h3 {
     margin: 50px 0;
