@@ -40,7 +40,7 @@ nuclearDataExperience/
     └── nuclear-detonations.json
 ```
 
-Approach
+## Approach
 
 The approach was to create interactive points on a map representing nuclear detonations. Since latitude and longitude data was provided, I was able to use an SVG map as a base and overlay each detonation at its corresponding location.
 
@@ -57,10 +57,11 @@ Open the project folder in VS Code, launch index.html with Live Server, and the 
 The project loads its data from:
 
 ./data/nuclear-detonations.json
-Purpose
+
+## Purpose
 
 This project is an exploration of how historical data can be presented through interactive visual storytelling. It focuses on the geographic and temporal footprint of the nuclear age and provides a way to explore individual records within the larger dataset.
 Status
 
-This is an ongoing data visualization project.
+
 
