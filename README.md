@@ -45,10 +45,12 @@ nuclearDataExperience/
 The approach was to create interactive points on a map representing nuclear detonations. Since latitude and longitude data was provided, I was able to use an SVG map as a base and overlay each detonation at its corresponding location.
 
 Once the map was established, I wanted to animate each point when clicked and create a visual comparison between the detonations based on their yield. From there, the focus shifted to typography, visual hierarchy, and GSAP animation to bring the experience together.
-What I Cut
+
+## What I Cut
 
 I intentionally kept the experience focused on the map, individual detonation records, and motion rather than adding filters, search, or additional data visualizations. The goal was to prioritize visual hierarchy, interaction, and a clear editorial experience within the available time.
-Running Locally
+
+## Running Locally
 
 The project can be run locally using the Live Server extension in VS Code.
 
