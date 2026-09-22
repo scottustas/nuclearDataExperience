@@ -17,12 +17,8 @@ let data = [];
 // -----------------------------------------
 
 async function loadData() {
-  console.log("Loading JSON...");
-
   try {
     const response = await fetch("./data/nuclear-detonations.json");
-
-    console.log("Response:", response.status);
 
     if (!response.ok) {
       throw new Error(`JSON request failed: ${response.status}`);
@@ -30,13 +26,12 @@ async function loadData() {
 
     data = await response.json();
 
-    console.log("✅ Loaded records:", data.length);
-    console.log("First record:", data[0]);
+    console.log("Loaded records:", data.length);
 
     initializeExperience();
 
   } catch (error) {
-    console.error("❌ DATA ERROR:", error);
+    console.error("DATA ERROR:", error);
 
     if (recordCount) {
       recordCount.textContent = "DATA ERROR";
@@ -115,34 +110,40 @@ function setupInteractions() {
 
     point.addEventListener("click", () => {
 
-      // 1. Manage active class for points
       points.forEach(p => p.classList.remove("active"));
       point.classList.add("active");
 
       const index = Number(point.dataset.index);
       const record = data[index];
 
-      // 2. Dynamic GSAP Radar Shockwave (Size scales with yield, speed stays constant)
-      gsap.killTweensOf(point); // Prevents glitching if clicked rapidly
+      const yieldVal = Number(record.yield_kt) || 1;
+      const logYield = Math.log10(Math.max(yieldVal, 0.001));
 
-      const yieldVal = record.yield_kt || 1;
-      const logYield = Math.log10(Math.max(yieldVal, 0.001)); 
-      
-      // Map it to a pixel radius (between 15px for small tests up to 70px for Tsar Bomba)
-      const maxRadius = Math.min(Math.max(15 + (logYield * 12), 15), 70);
+      const maxRadius =
+        Math.min(
+          Math.max(15 + (logYield * 12), 15),
+          70
+        );
 
-      gsap.fromTo(point, 
-        { 
-          boxShadow: "0 0 0 8px rgba(216,255,62,0.8)" 
-        }, 
-        { 
-          boxShadow: `0 0 0 ${maxRadius}px rgba(216,255,62,0)`, 
-          duration: 1.6, // Fixed snappy duration for every click
-          ease: "power2.out" 
-        }
-      );
+      if (typeof gsap !== "undefined") {
 
-      showRecord(record);
+        // Prevent overlapping GSAP shockwave animations on rapid clicks
+        gsap.killTweensOf(point);
+
+        gsap.fromTo(
+          point,
+          {
+            boxShadow: "0 0 0 8px rgba(216,255,62,0.8)"
+          },
+          {
+            boxShadow: `0 0 0 ${maxRadius}px rgba(216,255,62,0)`,
+            duration: 1.6,
+            ease: "power2.out"
+          }
+        );
+      }
+
+      showRecord(record, index);
     });
 
   });
@@ -159,15 +160,15 @@ function setupInteractions() {
 }
 
 
+
 // -----------------------------------------
 // DETAIL CARD
 // -----------------------------------------
 
-function showRecord(record) {
+function showRecord(record, index) {
 
   detailNumber.textContent =
-    String(data.indexOf(record) + 1)
-      .padStart(3, "0");
+    String(index + 1).padStart(3, "0");
 
   detailTitle.textContent =
     record.name;
@@ -175,23 +176,27 @@ function showRecord(record) {
   detailFieldOne.textContent =
     record.year;
 
-  // EDITORIAL ENHANCEMENT FOR YIELD:
-  const yieldValue = record.yield_kt;
-  let yieldContext = `${yieldValue} kt`;
-  
+  const yieldValue = Number(record.yield_kt);
+
+  let yieldContext;
+
   if (yieldValue) {
-    // Rough comparison to Hiroshima (~15kt) for visceral scale
-    const hiroshimaRatio = (yieldValue / 15).toFixed(1);
+    const hiroshimaRatio =
+      (yieldValue / 15).toFixed(1);
+
     if (hiroshimaRatio > 1) {
-      yieldContext = `${yieldValue} kt (~${hiroshimaRatio}x Hiroshima)`;
+      yieldContext =
+        `${yieldValue} kt (~${hiroshimaRatio}× estimated Hiroshima yield)`;
     } else {
-      yieldContext = `${yieldValue} kt (Sub-Hiroshima scale)`;
+      yieldContext =
+        `${yieldValue} kt (below estimated Hiroshima yield)`;
     }
   } else {
     yieldContext = "Unannounced / Undisclosed";
   }
 
-  detailFieldTwo.textContent = yieldContext;
+  detailFieldTwo.textContent =
+    yieldContext;
 
   detailFieldThree.textContent =
     record.test_type;
@@ -203,55 +208,25 @@ function showRecord(record) {
     gsap.fromTo(
       "#detailCard",
       { y: 30, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.5, ease: "power3.out" }
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.5,
+        ease: "power3.out"
+      }
     );
   }
 }
+
 
 
 // -----------------------------------------
 // GSAP
 // -----------------------------------------
 
-function renderPoints() {
-
-  console.log("Rendering points...");
-
-  canvas.innerHTML = "";
-
-  data.forEach((record, index) => {
-
-    const point = document.createElement("button");
-
-    point.className = "data-point";
-    point.type = "button";
-    point.title = record.name;
-    point.setAttribute("aria-label", record.name);
-
-    const x = ((record.longitude + 180) / 360) * 100;
-    const y = ((90 - record.latitude) / 180) * 100;
-
-    point.style.left = `${x}%`;
-    point.style.top = `${y}%`;
-    point.dataset.index = index;
-
-    // 🕒 Waits 2 seconds for the hero text to finish, then randomly staggers over the next 1.8s
-const randomDelay = (2.0 + Math.random() * 2.5).toFixed(2);
-    point.style.animation = `pointPop 0.8s cubic-bezier(0.25, 1, 0.5, 1) ${randomDelay}s both`;
-
-    canvas.appendChild(point);
-  });
-}
-
-
 function setupAnimations() {
 
-  const points = document.querySelectorAll(".data-point");
 
-  console.log(
-    "GSAP points:",
-    points.length
-  );
 
   if (typeof gsap === "undefined") {
     console.warn("GSAP isn't loaded.");
@@ -265,29 +240,25 @@ function setupAnimations() {
   });
 
   intro
-    .from(".eyebrow", {
-      opacity: 0,
-      y: 20,
-      duration: .6
-    })
+
     // Stagger each line of the hero title sequentially
     .from(".title-line", {
       opacity: 0,
       y: 50,
       duration: 2,
-      stagger: 0.25, 
+      stagger: .5, 
       ease: "power3.out"
     }, "-=0.3")
     .from(".hero-description", {
       opacity: 0,
       y: 20,
-      duration: 0.6
-    }, "-=1.75")
+      duration: 1
+    }, "-=1")
     .from(".explore-button", {
       opacity: 0,
       y: 20,
-      duration: 0.6
-    }, "-=1.5");
+      duration: 1
+    }, "-=1");
 
 
 }
