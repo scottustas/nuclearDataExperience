@@ -61,7 +61,4 @@ The project loads its data from:
 ## Purpose
 
 This project is an exploration of how historical data can be presented through interactive visual storytelling. It focuses on the geographic and temporal footprint of the nuclear age and provides a way to explore individual records within the larger dataset.
-Status
-
-
 

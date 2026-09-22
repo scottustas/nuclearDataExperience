@@ -7,6 +7,7 @@
   --accent: #dec406;
 
   --padding: clamp(20px, 4vw, 32px);
+  --content-width: 1200px;
 }
 
 * {
@@ -32,8 +33,8 @@ button {
 section {
   position: relative;
   padding: 0 var(--padding);
-  max-width: 800px; /* Locked to 800px */
-  margin: 0 auto;    /* Centers everything uniformly */
+  max-width: var(--content-width);
+  margin: 0 auto;
 }
 
 @keyframes pointPop {
@@ -41,6 +42,7 @@ section {
     opacity: 0;
     transform: translate(-50%, -50%) scale(0);
   }
+
   100% {
     opacity: 0.5;
     transform: translate(-50%, -50%) scale(1);
@@ -61,7 +63,7 @@ section {
   padding-bottom: 24px;
   position: relative;
   overflow: hidden;
-  max-width: 800px; /* Locked to 800px */
+  max-width: var(--content-width);
   margin: 0 auto;
 }
 
@@ -94,8 +96,8 @@ footer {
 
 .hero-title {
   margin: 0;
-  max-width: 800px;
-  font-size: clamp(3rem, 9vw, 5.5rem); /* Scaled down slightly to fit 800px cleanly */
+  max-width: 1200px;
+  font-size: clamp(3.5rem, 8vw, 7rem);
   line-height: 0.88;
   letter-spacing: -0.065em;
   font-weight: 600;
@@ -103,25 +105,35 @@ footer {
 
 .hero-title em {
   font-style: normal;
-  background: linear-gradient(135deg, #990709 0%, #dec406 40%, #ffea43 75%, #080000 100%);
+  background: linear-gradient(
+    135deg,
+    #990709 0%,
+    #dec406 40%,
+    #ffea43 75%,
+    #080000 100%
+  );
   background-size: 100% auto;
   background-position: center;
-  
+
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  
+
   animation: nuclearFlare 2s ease-in-out 3;
   animation-fill-mode: forwards;
   filter: drop-shadow(0 0 25px rgba(255, 69, 0, 0.4));
 }
 
 @keyframes nuclearFlare {
-  0%, 100% {
-    filter: drop-shadow(0 0 20px rgba(255, 69, 0, 0.3)) brightness(1);
+  0%,
+  100% {
+    filter: drop-shadow(0 0 20px rgba(255, 69, 0, 0.3))
+      brightness(1);
   }
+
   50% {
-    filter: drop-shadow(0 0 50px rgba(255, 140, 0, 0.8)) brightness(1.25);
+    filter: drop-shadow(0 0 50px rgba(255, 140, 0, 0.8))
+      brightness(1.25);
   }
 }
 
@@ -133,7 +145,7 @@ footer {
 }
 
 .hero-description {
-  max-width: 360px;
+  max-width: 420px;
   margin: 0;
   color: var(--muted);
   font-size: 15px;
@@ -181,23 +193,26 @@ footer {
 
 .visual-section {
   padding-bottom: 50px;
-  max-width: 800px; /* Locked to 800px */
+  max-width: var(--content-width);
   margin: 0 auto;
 }
 
 .visualization {
   position: relative;
   width: 100%;
-  max-width: 800px; /* Locked to 800px */
+  max-width: 1200px;
   margin: 0 auto;
-  aspect-ratio: 2 / 1; 
+  aspect-ratio: 2 / 1;
   overflow: hidden;
   border: 1px solid var(--line);
-  
-  background: 
-    linear-gradient(rgba(11, 11, 11, 0.88), rgba(11, 11, 11, 0.88)),
-    url('./img/map.svg');
-  
+
+  background:
+    linear-gradient(
+      rgba(11, 11, 11, 0.88),
+      rgba(11, 11, 11, 0.88)
+    ),
+    url("./img/map.svg");
+
   background-size: 100% 100%;
   background-position: center;
   background-repeat: no-repeat;
@@ -207,8 +222,15 @@ footer {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+    linear-gradient(
+      rgba(255, 255, 255, 0.035) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.035) 1px,
+      transparent 1px
+    );
   background-size: 80px 80px;
   pointer-events: none;
   z-index: 1;
@@ -231,8 +253,11 @@ footer {
   mix-blend-mode: screen;
   cursor: pointer;
   transform: translate(-50%, -50%);
-  box-shadow: 0 0 0 0 rgba(216,255,62,0.3);
-  transition: transform 0.25s ease, opacity 0.25s ease, background 0.25s ease;
+  box-shadow: 0 0 0 0 rgba(216, 255, 62, 0.3);
+  transition:
+    transform 0.25s ease,
+    opacity 0.25s ease,
+    background 0.25s ease;
 }
 
 .data-point:hover {
@@ -246,7 +271,7 @@ footer {
   background: #ffffff !important;
   opacity: 1 !important;
   mix-blend-mode: normal !important;
-  box-shadow: 0 0 0 6px rgba(216,255,62,0.3);
+  box-shadow: 0 0 0 6px rgba(216, 255, 62, 0.3);
   z-index: 10;
 }
 
@@ -272,7 +297,7 @@ footer {
 
 .detail-card {
   width: 100%;
-  max-width: 800px; /* Locked to 800px */
+  max-width: 1200px;
   margin: 0 auto;
   padding: clamp(25px, 5vw, 50px);
   background: var(--surface);
@@ -319,9 +344,8 @@ footer {
   display: flex;
   justify-content: space-between;
   padding: 25px var(--padding);
-  /* border-top: 1px solid var(--line); */
   color: var(--muted);
-  max-width: 800px; /* Locked to 800px */
+  max-width: var(--content-width);
   margin: 0 auto;
 }
 
